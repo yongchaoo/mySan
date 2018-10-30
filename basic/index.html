@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子组件通信</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+<script src="https://unpkg.com/san@latest"></script>
+<script>
+
+var Child = san.defineComponent({
+    template: 
+         '<div class="card">'
+        +       '<p class="card-title">{{title}}</p>'
+        +       '<p class="card-content">{{content}}</p>'
+        +       '<button class="card-btn" on-click="change">点我</button>'
+        + '</div>'
+        ,
+    initData: function () {
+        return {
+            title: "child title",
+            content: "child content",
+        };
+    },
+    change:function(){
+        var title = this.data.get("title") // 获取父组件传的值
+        this.fire("change", title) // 传值给父组件
+    }
+});
+
+var Parent = san.defineComponent({
+    template: 
+        '<div class="parent">'
+        +   '<p class="top">看这里：{{word}}</p>'
+        +   '<my-card title="{{title[0]}}" content="{{content[0]}}" on-change="getTitle"></my-card>'
+        +   '<my-card title="{{title[1]}}" content="{{content[1]}}" on-change="getTitle"></my-card>'
+        + '</div>'
+        ,
+    components: {
+        'my-card': Child
+    },
+    initData: function () {
+        return {
+            word:"demo of san",
+            title:[],
+            content:[]
+        };
+    },
+    attached:function(){
+        let _this = this      
+        setTimeout(function(){
+            _this.data.push("title", 'san') // 数组需要使用push，视图才会变化
+            _this.data.push("title", 'yongchaoo')
+            _this.data.push("content", 'js frame')
+            _this.data.push("content", 'loving coding')
+        }, 3000)
+    },
+    // 事件监听, 接收子组件的值
+    getTitle:function(value){
+        var newWord = value
+        this.data.set("word", newWord)
+    }
+});
+
+var Parent = new Parent();
+Parent.attach(document.body);
+</script>
+</body>
+</html>

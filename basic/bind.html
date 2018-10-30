@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向绑定</title>
+</head>
+<body>
+<script src="https://unpkg.com/san@latest"></script>
+<script>
+var MyApp = san.defineComponent({
+    template: 
+        '<div>'
+        +   '请输入值: <input value="{= word =}" placeholder="请输入">'
+        +   '<h2>输入的值: {{word}}</h2>'
+        + '</div>'
+        ,
+    initData: function () {
+        return {
+            word: ''
+        };
+    }
+});
+
+var myApp = new MyApp();
+myApp.attach(document.body);
+</script>
+</body>
+</html>

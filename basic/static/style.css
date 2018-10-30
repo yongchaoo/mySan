@@ -1,0 +1,30 @@
+.parent{
+    width: 1190px;
+    height: 400px;
+    margin: 100px auto;
+    background: #f7f7f7;
+    text-align: center;
+}
+.top{
+    padding-top: 36px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.card{
+    width: 130px;
+    height: 200px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 2px 2px 11px #000;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 40px;
+}
+.card .card-title{
+    font-size: 20px;
+}
+.card .card-content{
+    font-size: 16px;
+}
